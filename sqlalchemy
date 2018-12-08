@@ -51,3 +51,11 @@ def query(id):
         print("no result")
 
 
+def query_all():
+    connection = engine.connect()
+    result = connection.execute("select name from users")
+    for row in result:
+        print("username:", row['name'])
+    connection.close()
+
+query('11')
