@@ -1,0 +1,27 @@
+from sqlalchemy import create_engine
+from sqlalchemy import Column, Date, Integer, String, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+
+# 连接数据库, 如果数据库不存在，就在当前的项目目录中创建了
+engine = create_engine('sqlite:///hello.db', echo=True)
+
+# 基本类
+Base = declarative_base()
+
+
+# 表要继承基本类
+class User(Base):
+    __tablename__ = 'users'  # 表的名字
+
+    # 定义各字段
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    fullname = Column(String)
+    password = Column(String)
+
+    def __str__(self):
+        return self.id
+
+
+# 创建表
+Base.metadata.create_all(engine)
